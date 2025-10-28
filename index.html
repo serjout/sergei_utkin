@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Sergei Utkin frontend developer</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                line-height: 1.5;
+                display: flex;
+            }
+            .sidebar {
+                width: 220px;
+                position: fixed;
+                left: 0;
+                top: 0;
+                height: 100vh;
+                background: #f5f5f5;
+                padding: 20px;
+                overflow-y: auto;
+                border-right: 1px solid #ddd;
+            }
+            .sidebar h3 {
+                margin-top: 0;
+                font-size: 16px;
+                color: #333;
+            }
+            .sidebar nav ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+            .sidebar nav li {
+                margin-bottom: 10px;
+            }
+            .sidebar nav a {
+                color: #0066cc;
+                text-decoration: none;
+                font-size: 14px;
+                display: block;
+                padding: 5px 0;
+                transition: color 0.2s;
+            }
+            .sidebar nav a:hover {
+                color: #003d7a;
+                text-decoration: underline;
+            }
+            .sidebar nav ul ul {
+                margin-top: 5px;
+                margin-left: 15px;
+            }
+            .sidebar nav ul ul li {
+                margin-bottom: 5px;
+            }
+            .sidebar nav ul ul a {
+                font-size: 12px;
+                color: #666;
+            }
+            .sidebar nav ul ul a:hover {
+                color: #0066cc;
+            }
+            .main-content {
+                margin-left: 220px;
+                padding: 20px 40px;
+                flex: 1;
+            }
+            h1 {
+                font-size: 28px;
+                margin-bottom: 5px;
+            }
+            h2 {
+                font-size: 22px;
+                border-bottom: 1px solid #ccc;
+                padding-bottom: 5px;
+            }
+            ul {
+                margin: 5px 0;
+                padding-left: 20px;
+            }
+            .section {
+                margin-bottom: 40px;
+                scroll-margin-top: 20px;
+
+            }
+            .job {
+                margin-bottom: 15px;
+                border-bottom: 1px solid #ccc;
+            }
+            article.job {
+                padding-bottom: 15px;
+            }
+            .date {
+                font-weight: bold;
+            }
+            .company {
+                font-weight: 600;
+                color: #444;
+            }
+            .skills {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .skill {
+                background: #eee;
+                padding: 5px 10px;
+                border-radius: 4px;
+            }
+
+            .skip-link {
+                position: absolute;
+                top: -40px;
+                left: 0;
+                background: #0066cc;
+                color: white;
+                padding: 8px;
+                text-decoration: none;
+                z-index: 100;
+            }
+            .skip-link:focus {
+                top: 0;
+            }
+
+            a:focus,
+            button:focus {
+                outline: 2px solid #0066cc;
+                outline-offset: 2px;
+            }
+
+            h3 {
+                font-size: 18px;
+                margin: 0 0 5px 0;
+            }
+
+            .position {
+                font-weight: normal;
+            }
+
+            @media (max-width: 768px) {
+                .sidebar {
+                    position: relative;
+                    width: 100%;
+                    height: auto;
+                    border-right: none;
+                    border-bottom: 1px solid #ddd;
+                }
+                .main-content {
+                    margin-left: 0;
+                    padding: 20px;
+                }
+                body {
+                    flex-direction: column;
+                }
+            }
+
+            @media print {
+                body {
+                    flex-direction: column;
+                    margin: 0;
+                }
+
+                .skip-link {
+                    display: none;
+                }
+
+                .sidebar {
+                    position: relative;
+                    width: 100%;
+                    height: auto;
+                    background: white;
+                    padding: 10px 0;
+                    border-right: none;
+                    border-bottom: 2px solid #333;
+                    page-break-after: avoid;
+                }
+
+                .sidebar nav {
+                    display: flex;
+                    justify-content: center;
+                }
+
+                .sidebar nav > ul {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    gap: 15px;
+                }
+
+                .sidebar nav > ul > li {
+                    margin-bottom: 0;
+                }
+
+                .sidebar nav ul ul {
+                    display: none;
+                }
+
+                .sidebar nav a {
+                    color: #333;
+                    font-size: 12px;
+                    padding: 2px 5px;
+                }
+
+                .main-content {
+                    margin-left: 0;
+                    padding: 20px;
+                }
+
+                .section {
+                    page-break-before: avoid;
+                    page-break-inside: avoid;
+                }
+
+                h2 {
+                    page-break-before: avoid;
+                    page-break-after: avoid;
+                }
+
+                article.job {
+                    page-break-inside: avoid;
+                }
+
+                a[href^="http"]:after {
+                    content: "";
+                }
+
+                .skill {
+                    -webkit-print-color-adjust: exact;
+                    print-color-adjust: exact;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <aside class="sidebar">
+            <nav aria-label="Main navigation">
+                <ul>
+                    <li><a href="#contact">Contact Info</a></li>
+                    <li><a href="#position">Desired Position</a></li>
+                    <li>
+                        <a href="#experience">Work Experience</a>
+                        <ul>
+                            <li><a href="#job-qase">Qase Inc.</a></li>
+                            <li><a href="#job-avito2023">Avito Armenia</a></li>
+                            <li><a href="#job-wheely">Wheely</a></li>
+                            <li><a href="#job-gett">Gett</a></li>
+                            <li><a href="#job-sonm">SONM</a></li>
+                            <li><a href="#job-splyt">splyt.com</a></li>
+                            <li><a href="#job-avito2015">Avito Moscow</a></li>
+                            <li>
+                                <a href="#job-exactpro">Exactpro systems</a>
+                            </li>
+                            <li><a href="#job-onno">ONNO</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#recommendations">Recommendations</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content" id="main-content">
+            <h1 id="contact">Sergei Utkin</h1>
+            <p>Male, 37 years, born on 16 September 1988</p>
+            <p>
+                <a href="tel:+995511107643">+995 511-107-643</a><br />
+                <a
+                    target="_blank"
+                    href="https://t.me/JohnDoe1609"
+                    rel="noopener noreferrer"
+                    >Telegram: @JohnDoe1609</a
+                ><br />
+                <a href="mailto:serj.out@gmail.com">serj.out@gmail.com</a> —
+                preferred means of communication
+            </p>
+            <p>
+                Reside in: Tbilisi<br />
+                Citizenship: Russia, work permit at: Russia, Georgia<br />
+                Ready to relocate, ready for business trips
+            </p>
+
+            <div class="section" id="position">
+                <h2>Desired position and salary</h2>
+                <p><strong>Senior front-end developer</strong> $100,000 - $120,000</p>
+                <ul>
+                    <li>Employment: full time, part time</li>
+                    <li>Work schedule: full day</li>
+                    <li>Desired travel time to work: any</li>
+                </ul>
+            </div>
+
+            <div class="section" id="experience">
+                <h2>Work experience — 13 years 7 months</h2>
+
+                <article class="job" id="job-qase">
+                    <h3>
+                        <span class="company">Qase Inc. USA (remote)</span> —
+                        <span class="position">Senior Frontend developer</span>
+                    </h3>
+                    <p class="date">
+                        January 2024 — till now (1 year 10 months)
+                    </p>
+                    <ul>
+                        <li>
+                            Developed and maintained client-side application
+                            (reactjs, mobx & etc.)
+                        </li>
+                        <li>
+                            Contributed to UI Kit development (react-aria based)
+                        </li>
+                        <li>Improved application accessibility (a11y)</li>
+                        <li>
+                            Developed Markdown editor component (lexical.js
+                            based)
+                        </li>
+                        <li>Handled minor backend tasks (php, laravel)</li>
+                        <li>Configured Grafana dashboards for NFRs</li>
+                        <li>
+                            Participated in product requirements elaboration
+                        </li>
+                    </ul>
+                </article>
+
+                <article class="job" id="job-avito2023">
+                    <h3>
+                        <span class="company">Avito Armenia (remote)</span> —
+                        <span class="position">Senior frontend developer</span>
+                    </h3>
+                    <p class="date">March 2023 — October 2023 (8 months)</p>
+                    <ul>
+                        <li>
+                            Contributed to infrastructure project initiatives
+                        </li>
+                        <li>
+                            Developed from scratch and maintained internal
+                            libraries
+                        </li>
+                        <li>Managed SPA and related services</li>
+                        <li>Improved Developer Experience</li>
+                        <li>
+                            Stack: typescript, nodejs, postgres, mongodb,
+                            express, fastify, reactjs
+                        </li>
+                    </ul>
+                    <p>
+                        Reason for dismissal: the company downsized staff
+                        located outside Russia.
+                    </p>
+                </article>
+
+                <article class="job" id="job-wheely">
+                    <h3>
+                        <span class="company">Wheely Moscow</span> —
+                        <span class="position">Senior frontend developer</span>
+                    </h3>
+                    <p class="date">July 2021 — March 2023 (1 year 9 months)</p>
+                    <ul>
+                        <li>Developed SPA</li>
+                        <li>
+                            Participated in infrastructure projects, including
+                            UI Kit development
+                        </li>
+                        <li>Introduced contract-first approach</li>
+                        <li>Developed internal authentication libraries</li>
+                        <li>Maintained legacy code</li>
+                        <li>Provided mentorship</li>
+                        <li>
+                            TypeScript, React & etc, TanStack Query, Shared
+                            Worker, t-comb, Next.js, Ember.js
+                        </li>
+                    </ul>
+                    <p>
+                        Reason for dismissal: company prohibited work outside of
+                        Russia
+                    </p>
+                </article>
+
+                <article class="job" id="job-gett">
+                    <h3>
+                        <span class="company">Gett Moscow</span> —
+                        <span class="position">Senior front-end developer</span>
+                    </h3>
+                    <p class="date">
+                        November 2018 — June 2021 (2 years 8 months)
+                    </p>
+                    <ul>
+                        <li>
+                            Refactoring, supporting, and enhancing the Fraud
+                            Prevention System (Golang). Front-end: React/Redux
+                        </li>
+                        <li>
+                            Creating a dashboard for fraud analysts. Back-end:
+                            Golang, PL/pgSQL. Front-end: React/Redux/RSuite.
+                        </li>
+                        <li>
+                            Developing a small front-end for an internal
+                            financial service. React/Redux/RxJS
+                        </li>
+                        <li>
+                            Refactoring and developing a B2B portal,
+                            transitioning to TypeScript, introducing unit tests
+                            and contract-first approach, applying Redux best
+                            practices.
+                        </li>
+                        <li>Applicant interviews.</li>
+                    </ul>
+                </article>
+
+                <article class="job" id="job-sonm">
+                    <h3>
+                        <span class="company">SONM Moscow</span> —
+                        <span class="position">Lead front-end developer</span>
+                    </h3>
+                    <p class="date">
+                        September 2017 — September 2018 (1 year 1 month)
+                    </p>
+                    <ul>
+                        <li>
+                            Evaluating business requirements and choosing a tech
+                            stack.
+                        </li>
+                        <li>Designing application architecture.</li>
+                        <li>Team management.</li>
+                        <li>Providing mentorship.</li>
+                        <li>Developing a library of visual components.</li>
+                        <li>Code reviews.</li>
+                        <li>Applicant interviews.</li>
+                    </ul>
+                    <p>
+                        mobx, universal-router, React, Less, Webpack, Electron,
+                        WebWorker, TypeScript, tcomb, lodash/fp, Karma, Mocha,
+                        web3.
+                    </p>
+                </article>
+
+                <article class="job" id="job-splyt">
+                    <h3>
+                        <span class="company">splyt.com</span> —
+                        <span class="position">Front-end developer</span>
+                    </h3>
+                    <p class="date">June 2017 — September 2017 (4 months)</p>
+                    <ul>
+                        <li>
+                            Designed and developed SPA and UI-kit (React, Mobx,
+                            CSS Modules, Universal Router, lodash, Webpack,
+                            Babel)
+                        </li>
+                        <li>
+                            Contributed to company website development (Preact,
+                            Universal Router, Webpack, Babel, PostCSS)
+                        </li>
+                    </ul>
+                </article>
+
+                <article class="job" id="job-avito2015">
+                    <h3>
+                        <span class="company">Avito Moscow</span> —
+                        <span class="position">Front-end developer</span>
+                    </h3>
+                    <p class="date">
+                        November 2015 — June 2017 (1 year 8 months)
+                    </p>
+                    <ul>
+                        <li>
+                            Enhanced and maintained existing company projects
+                        </li>
+                        <li>
+                            Stack: AngularJS 1, es6, twig, bootstrap, jQuery,
+                            stylus, react, redux
+                        </li>
+                    </ul>
+                </article>
+
+                <article class="job" id="job-exactpro">
+                    <h3>
+                        <span class="company">Exactpro systems, LLC</span> —
+                        <span class="position">Software developer</span>
+                    </h3>
+                    <p class="date">
+                        January 2013 — November 2015 (2 years 11 months)
+                    </p>
+                    <ul>
+                        <li>
+                            Led the migration of the web GUI framework for a
+                            large SPA (ExtJS 3 → ExtJS 4).
+                        </li>
+                        <li>
+                            Created a web GUI for a real-time trading system
+                            (ExtJS, WebSockets).
+                        </li>
+                        <li>
+                            Developed visual editor for test scenarios (ReactJS,
+                            baobab.js).
+                        </li>
+                    </ul>
+                    <p>
+                        ReactJS, ES6, Gulp, Webpack, Babel, SCSS, JSCS/ESLint,
+                        JSDoc, Karma, Jasmine.
+                    </p>
+                </article>
+
+                <article class="job" id="job-onno">
+                    <h3>
+                        <span class="company">ONNO Kostroma</span> —
+                        <span class="position">Software developer</span>
+                    </h3>
+                    <p class="date">November 2011 — October 2012 (1 year)</p>
+                    <ul>
+                        <li>
+                            Designed and implemented an application to automate
+                            the workflow of an online store manager
+                        </li>
+                        <li>Stack: C#, WPF, Entity Framework</li>
+                    </ul>
+                </article>
+            </div>
+
+            <div class="section" id="education">
+                <h2>Education</h2>
+                <p>
+                    <strong>Bachelor</strong><br />Institute of Social
+                    Sciences<br />Management
+                </p>
+            </div>
+
+            <div class="section" id="skills">
+                <h2>Skills</h2>
+                <p>
+                    <strong>Languages</strong><br />Russian — Native<br />English
+                    — B2
+                </p>
+                <div class="skills">
+                    <span class="skill">TypeScript</span>
+                    <span class="skill">React.js</span>
+                    <span class="skill">Node.js</span>
+                    <span class="skill">MobX</span>
+                    <span class="skill">Redux</span>
+                    <span class="skill">TanStack Query</span>
+                    <span class="skill">Next.js</span>
+                    <span class="skill">Webpack</span>
+                    <span class="skill">React Aria</span>
+                    <span class="skill">Lexical.js</span>
+                    <span class="skill">Accessibility (a11y)</span>
+                    <span class="skill">UI Kit Development</span>
+                    <span class="skill">TDD/BDD</span>
+                    <span class="skill">SOLID</span>
+                    <span class="skill">CSS</span>
+                    <span class="skill">Contract-first</span>
+                    <span class="skill">Shared Workers</span>
+                    <span class="skill">WebSockets</span>
+                    <span class="skill">Technical Leadership</span>
+                </div>
+            </div>
+
+            <div class="section" id="recommendations">
+                <h2>Recommendations</h2>
+                <ul>
+                    <li>
+                        <strong>Qase Inc.</strong>
+                        <a
+                            href="https://www.linkedin.com/in/cbiancucci/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Christian Biancucci</a
+                        >
+                        (CTO)
+                    </li>
+                    <li>
+                        <strong>Exactprosystems</strong>
+                        <a
+                            href="https://www.linkedin.com/in/maxim-rudovsky-66b56816/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Maxim Rudovsky</a
+                        >
+                        (CTO)
+                    </li>
+                    <li>
+                        <strong>Wheely</strong>
+                        <a
+                            href="https://www.linkedin.com/in/boris-mudruk-67bb8654/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Boris Mudruk</a
+                        >
+                        (Engineering Manager)
+                    </li>
+                    <li>
+                        <strong>Авито</strong>
+                        <a
+                            href="https://www.linkedin.com/in/zubovao"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Aleksand Zubov</a
+                        >
+                        (Lead Frontend Development)
+                    </li>
+                </ul>
+            </div>
+
+            <!--<p><small>CV updated 28 October 2025 at 19:55</small></p>-->
+        </main>
+
+        <!-- This CV was crafted with the assistance of Claude (Anthropic AI Assistant) -->
+    </body>
+</html>
